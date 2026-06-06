@@ -1,0 +1,59 @@
+# **Logs**
+
+logs  
+.log  
+npm-debug.log  
+yarn-debug.log\*  
+yarn-error.log\*  
+pnpm-debug.log\*  
+lerna-debug.log\*
+
+# **Node modules
+
+node\_modules  
+.npm  
+jspm\_packages
+
+# **Build Output (Vite / TypeScript)**
+
+dist  
+dist-ssr  
+\*.local
+
+# **Editor directories and files**
+
+.vscode/\*  
+\!.vscode/extensions.json  
+.idea
+.idea/*
+.DS\_Store  
+\*.suo  
+\*.ntvs  
+\*.njsproj  
+\*.sln  
+\*.sw?
+
+# **Environment variables**
+
+.env  
+.env.\*  
+\!.env.example
+
+# **Docker 
+
+docker-compose.override.yml
+
+# **Testing**
+
+coverage  
+.nyc\_output
+
+# **Typescript**
+
+\*.tsbuildinfo
+
+# **OS Metadata**
+
+Thumbs.db  
+ehthumbs.db  
+Desktop.ini
