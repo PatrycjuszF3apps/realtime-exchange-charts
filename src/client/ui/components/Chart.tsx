@@ -8,7 +8,7 @@ import {
     type CandlestickSeriesOptions,
     type DeepPartial,
 } from 'lightweight-charts';
-import type { OHLCVBar } from '../types';
+import type { OHLCVBar } from '../../types';
 
 interface Props {
     bars: OHLCVBar[];
