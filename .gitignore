@@ -57,3 +57,8 @@ coverage
 Thumbs.db  
 ehthumbs.db  
 Desktop.ini
+
+.claude/.local/*
+.claude/.local
+
+.vite/*

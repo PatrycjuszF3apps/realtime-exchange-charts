@@ -1,5 +1,5 @@
-import { useLoading } from '../context/LoadingContext';
-import { LOADING_MESSAGES, type LoadingKey } from '../config/loadingMessages';
+import { useLoading } from '../../context/LoadingContext';
+import { LOADING_MESSAGES, type LoadingKey } from '../../config/loadingMessages';
 
 export function Spinner() {
     const { current } = useLoading();

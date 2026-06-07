@@ -1,4 +1,4 @@
-import type { TickerInfo } from '../types';
+import type { TickerInfo } from '../../types';
 
 interface Props {
     symbol:  string;

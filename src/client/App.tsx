@@ -1,18 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
-import { Chart } from './components/Chart';
-import { PriceDisplay } from './components/PriceDisplay';
-import { Spinner } from './components/Spinner';
+import { Chart } from './ui/components/Chart';
+import { PriceDisplay } from './ui/components/PriceDisplay';
+import { Spinner } from './ui/components/Spinner';
+import { ExchangeSelect } from './ui/components/ExchangeSelect';
+import { PairSelect } from './ui/components/PairSelect';
+import { IntervalSelector } from './ui/components/IntervalSelector';
+import { ErrorBanner } from './ui/components/ErrorBanner';
 import { useMarketData } from './hooks/useMarketData';
 import { useExchangePairs } from './hooks/useExchangePairs';
 import { useExchanges } from './hooks/useExchanges';
-import { INTERVALS } from './config/markets';
 import type { Interval } from './types';
 import '../style.css';
-
-const SELECT_CLS =
-    'bg-[#161b22] border border-[#30363d] text-[#e6edf3] text-sm rounded-md px-3 py-1.5 ' +
-    'focus:outline-none focus:ring-1 focus:ring-[#58a6ff] focus:border-[#58a6ff] cursor-pointer ' +
-    'hover:border-[#484f58] transition-colors';
 
 export default function App() {
     const [exchange, setExchange] = useState('binance');
@@ -54,48 +52,21 @@ export default function App() {
                 {/* Controls */}
                 <div className="flex items-center gap-2 flex-wrap">
 
-                    {/* Exchange */}
-                    <select
-                        value={exchange}
-                        onChange={e => handleExchangeChange(e.target.value)}
-                        disabled={exchangesLoading}
-                        className={SELECT_CLS}
-                    >
-                        {exchanges.map(ex => (
-                            <option key={ex} value={ex}>{ex}</option>
-                        ))}
-                    </select>
+                    <ExchangeSelect
+                        exchange={exchange}
+                        exchanges={exchanges}
+                        loading={exchangesLoading}
+                        onChange={handleExchangeChange}
+                    />
 
-                    {/* Pair */}
-                    <select
-                        value={pairsLoading ? '' : symbol}
-                        onChange={e => setSymbol(e.target.value)}
-                        disabled={pairsLoading}
-                        className={SELECT_CLS}
-                    >
-                        {pairsLoading
-                            ? <option value="">Loading pairs…</option>
-                            : pairs.map(p => <option key={p} value={p}>{p}</option>)
-                        }
-                    </select>
+                    <PairSelect
+                        symbol={symbol}
+                        pairs={pairs}
+                        loading={pairsLoading}
+                        onChange={setSymbol}
+                    />
 
-                    {/* Interval */}
-                    <div className="flex items-center gap-0.5 bg-[#0d1117] rounded-md border border-[#30363d] p-0.5">
-                        {INTERVALS.map(({ value, label }) => (
-                            <button
-                                key={value}
-                                onClick={() => setInterval(value)}
-                                className={
-                                    `px-2.5 py-1 text-xs font-medium rounded transition-colors ` +
-                                    (interval === value
-                                        ? 'bg-[#1f6feb] text-white'
-                                        : 'text-[#8b949e] hover:text-[#e6edf3]')
-                                }
-                            >
-                                {label}
-                            </button>
-                        ))}
-                    </div>
+                    <IntervalSelector interval={interval} onChange={setInterval} />
                 </div>
 
                 {/* Price info */}
@@ -103,12 +74,7 @@ export default function App() {
             </header>
 
             {/* ── Error Banner ── */}
-            {error && (
-                <div className="flex items-center gap-2 px-4 py-2 bg-[#3d1a1a] border-b border-[#f85149] text-[#f85149] text-xs flex-shrink-0">
-                    <span>⚠</span>
-                    <span className="font-mono">{error}</span>
-                </div>
-            )}
+            {error && <ErrorBanner message={error} />}
 
             {/* ── Chart ── */}
             <main className="flex-1 min-h-0 relative">
