@@ -35,10 +35,15 @@ src/
     │   ├── useExchanges     Fetches available exchanges
     │   ├── useExchangePairs Fetches USDT spot pairs for selected exchange
     │   └── useMarketData    Fetches OHLCV + ticker, polls every 5s
-    └── components/
-        ├── Spinner          Reads from LoadingContext — decoupled from API layer
-        ├── Chart            lightweight-charts candlestick + volume
-        └── PriceDisplay     Live ticker (last price, change, H/L/Vol)
+    └── ui/
+        └── components/
+            ├── Spinner            Reads from LoadingContext — decoupled from API layer
+            ├── Chart              lightweight-charts candlestick + volume
+            ├── PriceDisplay       Live ticker (last price, change, H/L/Vol)
+            ├── ExchangeSelect     Exchange picker
+            ├── PairSelect         Trading pair picker
+            ├── IntervalSelector   Timeframe picker
+            └── ErrorBanner        Inline error display
 ```
 
 The loading state follows a middleware pattern: hooks announce what they are doing by pushing typed entries (`FETCHING_PAIRS`, `FETCHING_MARKET_DATA`, …) to `LoadingContext`. The `Spinner` component resolves those keys through `loadingMessages.ts` — neither the spinner nor the hooks need to know about each other.
