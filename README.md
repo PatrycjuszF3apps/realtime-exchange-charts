@@ -33,6 +33,9 @@ src/
     │   ├── useExchanges     Fetches available exchanges
     │   ├── useExchangePairs Fetches USDT spot pairs for selected exchange
     │   └── useMarketData    Fetches OHLCV + ticker, polls every 5s
+    ├── test/                Vitest characterization tests (client only)
+    │   ├── mocks/           MSW handlers for all four API endpoints
+    │   └── hooks/           Tests for useExchanges, useExchangePairs, useMarketData
     └── ui/
         └── components/
             ├── Spinner            Reads from LoadingContext — decoupled from API layer
@@ -47,6 +50,22 @@ src/
 The loading state follows a middleware pattern: hooks announce what they are doing by pushing typed entries (`FETCHING_PAIRS`, `FETCHING_MARKET_DATA`, …) to `LoadingContext`. The `Spinner` component resolves those keys through `loadingMessages.ts` — neither the spinner nor the hooks need to know about each other.
 
 When switching exchanges the pair select resets immediately, blocking any API call until the new exchange's pairs are resolved. The previous symbol is restored if available on the new exchange; otherwise the first pair is selected.
+
+## Testing
+
+20 characterization tests covering the three data hooks (`useExchanges`, `useExchangePairs`, `useMarketData`). They capture current behaviour — OHLCV/ticker mapping, loading flags, 5 s polling, error paths, stale-response cancellation — and act as a regression net for the planned `services/` layer refactor.
+
+API calls are intercepted by [MSW](https://mswjs.io/) v2, so no running backend is required.
+
+```bash
+# Run once
+docker-compose run --rm realtime_exchange_charts npm test
+
+# Watch mode
+docker-compose run --rm realtime_exchange_charts npm run test:watch
+```
+
+See [`docs/TESTING.md`](docs/TESTING.md) for full details.
 
 ## Stack
 
