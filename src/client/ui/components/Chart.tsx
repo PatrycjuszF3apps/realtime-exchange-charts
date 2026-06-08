@@ -3,6 +3,7 @@ import {
     createChart,
     ColorType,
     CrosshairMode,
+    type UTCTimestamp,
     type IChartApi,
     type ISeriesApi,
     type CandlestickSeriesOptions,
@@ -91,12 +92,12 @@ export function Chart({ bars }: Props) {
         if (!candleRef.current || !volumeRef.current || bars.length === 0) return;
 
         candleRef.current.setData(
-            bars.map(({ time, open, high, low, close }) => ({ time, open, high, low, close }))
+            bars.map(({ time, open, high, low, close }) => ({ time: time as UTCTimestamp, open, high, low, close }))
         );
 
         volumeRef.current.setData(
             bars.map(({ time, volume, open, close }) => ({
-                time,
+                time: time as UTCTimestamp,
                 value: volume,
                 color: close >= open ? '#26a69a55' : '#ef535055',
             }))
