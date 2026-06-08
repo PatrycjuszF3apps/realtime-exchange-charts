@@ -9,9 +9,7 @@ An experimental proof-of-concept exploring the integration of **[ccxt](https://g
 
 ## Preview
 
-<video src="assets/videos/demo1.mp4" controls width="720">
-  Your browser does not support the video tag — watch the recording at <a href="assets/videos/demo1.mp4">assets/videos/demo1.mp4</a>.
-</video>
+<video src="https://github.com/user-attachments/assets/51853e03-47e9-4a7f-9d87-fae465e01da9" controls width="720"></video>
 
 ![Application running with the exchange selector expanded](assets/images/img1.png)
 
