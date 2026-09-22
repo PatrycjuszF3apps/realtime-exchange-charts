@@ -30,7 +30,7 @@ RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /home/dev/.bashr
     echo "alias ll='ls -alF'" >> /home/dev/.bashrc
 
 WORKDIR /app
-RUN chown -R dev:dev /app
+RUN mkdir -p /app/node_modules && chown -R dev:dev /app
 
 COPY --chown=dev:dev package.json package-lock.json* ./
 

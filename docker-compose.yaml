@@ -11,6 +11,7 @@ services:
     volumes:
       # Mount project into container for hot-reload
       - .:/app
+      - /app/node_modules
     container_name: app
     hostname: realtime-exchange-charts
     tty: true
